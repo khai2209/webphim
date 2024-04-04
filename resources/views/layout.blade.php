@@ -104,20 +104,19 @@
             <ul class="list-group" id="result" style="display:none; position: absolute; max-height:600px; overflow: hidden;">
             </ul>
             <div class="navbar-left">
-                <a href="{{route('history')}}" class="navbar-item fw-normal ms-5 d-flex flex-column align-items-center {{ Request::is('history') ? 'active-navbar' : '' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-                    <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
-                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0"/>
-                    </svg>
-                    <i class="" style="height: 30px; line-height: 30px; font-size:14px">Lịch sử</i></a>
-                <a href="{{route('account')}}" class="navbar-item fw-normal ms-5 d-flex flex-column align-items-center auth-show {{ Request::is('account') ? 'active-navbar' : '' }}">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-                    </svg>
-                    <i class="" style="height: 30px; line-height: 30px; font-size:14px">Tài khoản</i></a>
-                <div class="ms-5 d-flex flex-column align-items-center click-login" style="background-color: #1CC749; padding: 8px 10px; border-radius: 5px; cursor: pointer">
-                    <i class="" style="height: 22px; line-height: 22px;">Đăng nhập</i>
-                </div>
+                @if(Auth::check())
+                    <a href="{{route('account')}}" class="navbar-item fw-normal ms-5 d-flex flex-column align-items-center auth-show {{ Request::is('tai-khoan') ? 'active-navbar' : '' }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+                        </svg>
+                        <i class="" style="height: 30px; line-height: 30px; font-size:14px">{{Auth::user()->name}}</i>
+                    </a>
+                @else
+                    <div class="ms-5 d-flex flex-column align-items-center click-login" style="background-color: #1CC749; padding: 8px 10px; border-radius: 5px; cursor: pointer">
+                        <i class="" style="height: 22px; line-height: 22px;">Đăng nhập</i>
+                    </div>
+                @endif
+                
             </div>
         </div>
     </header>
@@ -127,102 +126,108 @@
     </div>
 
     <div id="modal" class="hide">
-    <div class="box-container">
-        <div class="box-header justify-content-end">
-            <div class="close-login">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                </svg>
-            </div>
-        </div>
-        <div class="box-body d-flex flex-column">
-            <div class="box-title my-3">
-                <h3>Đăng nhập</h3>
-            </div>
-            <p class="py-3">Bạn có thể quản lý tài khoản sau khi đăng nhập.</p>
-            <div class="login-with__google d-flex justify-content-center my-3">
-                <button href="" class="btn-login text-primary-emphasis">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
-                    <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
+        <div class="box-container">
+            <div class="box-header justify-content-end">
+                <div class="close-login">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
                     </svg>
-                    <span class="fs-6 ps-3">Đăng nhập bằng Google</span>
-                </button>
+                </div>
             </div>
-            <div class="login-with__facebook d-flex justify-content-center my-3">
-                <button href="" class="btn-login text-primary-emphasis">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
-                    <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
-                    </svg>
-                    <span class="fs-6 ps-3">Đăng nhập bằng Facebook</span>
-                </button>
-            </div>
-            <div class="login-with__account d-flex justify-content-center my-3">
-                <button href="" class="btn-login switch-model__2 text-primary-emphasis">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
-                    <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
-                    </svg>
-                    <span class="fs-6 ps-3">Đăng nhập bằng Mật Khẩu</span>
-                </button>
-            </div>
-        </div>    
-        <div class="box-footer d-flex justify-content-center flex-column align-items-center">
-            <p class="py-1">Bạn không có tài khoản? <button class="btn-signup__md1 link">Đăng ký</button> </p>
-            <p class="py-3 ps-3 fs-7 text-body-tertiary text-center">Nếu bạn chọn "Đăng nhập" túc là bạn đã đồng ý với <a href="" class="link">Thỏa thuận riêng tư</a> và <a href="" class="link">Điều khoản dịch vụ</a> của chúng tôi.</p>
-        </div>    
-    </div>
-    </div>
-    <div id="modal-2__login" class="hide">
-    <div class="box-container">
-        <div class="box-header">
-            <div class="back-btn__2 ">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 320 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
-            </div>
-            <div class="close-login modal-2__close">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
-                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
-                </svg>
-            </div>
-        </div>
-        <div class="box-body d-flex flex-column">
-            <div class="box-title my-3">
-                <h4>Đăng nhập bằng mật khẩu</h4>
-            </div>
-            <div class="form-login">
-                <form action="" class="d-flex flex-column justify-content-center">
-                    <label for="account" class="d-flex justify-content-center">
-                        <input type="text" name="account" class="input-account input-content" placeholder="Email hoặc số điện thoại di động">
-                        <!-- <span class="position-absolute d-block top-0">Nhập Email hoặc số điện thoại</span> -->
-                    </label>
-                    <label for="password" class="d-flex justify-content-center">
-                        <div class="position-relative">
-                            <input type="password" name="password" class="input-password input-content" placeholder="Mật khẩu">
-                            <span class="position-absolute eye d-block">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
-                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                                </svg>
-                            </span>
-                            <span class="position-absolute eye d-block d-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
-                                <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
-                                <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
-                                <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
-                            </svg>
-                        </span>
-                        </div>
-                    </label>
-                    <div class="d-flex justify-content-center">
-                        <button class="button-login">Đăng nhập</button>
-                    </div>
-                </form>
-                <button class="button-forgotpass">Quên mật khẩu</button>
-            </div>
+            <div class="box-body d-flex flex-column">
+                <div class="box-title my-3">
+                    <h3>Đăng nhập</h3>
+                </div>
+                <p class="py-3">Bạn có thể quản lý tài khoản sau khi đăng nhập.</p>
+                <div class="login-with__google d-flex justify-content-center my-3">
+                    <button href="" class="btn-login text-primary-emphasis">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
+                        <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
+                        </svg>
+                        <span class="fs-6 ps-3">Đăng nhập bằng Google</span>
+                    </button>
+                </div>
+                <div class="login-with__facebook d-flex justify-content-center my-3">
+                    <button href="" class="btn-login text-primary-emphasis">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+                        </svg>
+                        <span class="fs-6 ps-3">Đăng nhập bằng Facebook</span>
+                    </button>
+                </div>
+                <div class="login-with__account d-flex justify-content-center my-3">
+                    <button href="" class="btn-login switch-model__2 text-primary-emphasis">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                        <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"/>
+                        </svg>
+                        <span class="fs-6 ps-3">Đăng nhập bằng Mật Khẩu</span>
+                    </button>
+                </div>
+            </div>    
             <div class="box-footer d-flex justify-content-center flex-column align-items-center">
-                <p class="py-1"><button class="btn-signup__md2 link">Đăng ký</button> hoặc <button class="btn-another__md2 link">Dùng tài khoản khác đăng nhập</button></p>
-                <p class="py-3 px-3 fs-7 text-body-tertiary text-center">Nếu bạn chọn "Đăng nhập" túc là bạn đã đồng ý với <a href="" class="link">Thỏa thuận riêng tư</a> và <a href=""class="link">Điều khoản dịch vụ</a> của chúng tôi.</p>
+                <p class="py-1">Bạn không có tài khoản? <button class="btn-signup__md1 link">Đăng ký</button> </p>
+                <p class="py-3 ps-3 fs-7 text-body-tertiary text-center">Nếu bạn chọn "Đăng nhập" túc là bạn đã đồng ý với <a href="" class="link">Thỏa thuận riêng tư</a> và <a href="" class="link">Điều khoản dịch vụ</a> của chúng tôi.</p>
             </div>    
         </div>
     </div>
+    <div id="modal-2__login" class="hide">
+        <div class="box-container">
+            <div class="box-header">
+                <div class="back-btn__2 ">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 320 512"><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
+                </div>
+                <div class="close-login modal-2__close">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                    <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="box-body d-flex flex-column">
+                <div class="box-title my-3">
+                    <h4>Đăng nhập bằng mật khẩu</h4>
+                    @if($message = Session::get('error'))
+                        <div class="alert alert-danger alert-block">
+                            <btn:button class="close" data-dismiss="alert"></btn:button>
+                            <strong>{{$message}}</strong>
+                        </div>
+                    @endif
+                </div>
+                <div class="form-login">
+                    <form action="{{route('login.submit')}}" method="POST" class="d-flex flex-column justify-content-center">
+                        @csrf
+                        <label for="email" class="d-flex justify-content-center">
+                            <input type="email" name="email" class="input-account input-content" required placeholder="Email">
+                        </label>
+                        <label for="password" class="d-flex justify-content-center">
+                            <div class="position-relative">
+                                <input type="password" name="password" class="input-password input-content" required  placeholder="Mật khẩu">
+                                {{-- <span class="position-absolute eye d-block">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                    <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                    <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                    </svg>
+                                </span>
+                                <span class="position-absolute eye d-block d-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
+                                    <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
+                                    <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
+                                    <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
+                                </svg> --}}
+                            </span>
+                            </div>
+                        </label>
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="button-login">Đăng nhập</button>
+                        </div>
+                    </form>
+                    <button class="button-forgotpass">Quên mật khẩu</button>
+                </div>
+                <div class="box-footer d-flex justify-content-center flex-column align-items-center">
+                    <p class="py-1"><button class="btn-signup__md2 link">Đăng ký</button> hoặc <button class="btn-another__md2 link">Dùng tài khoản khác đăng nhập</button></p>
+                    <p class="py-3 px-3 fs-7 text-body-tertiary text-center">Nếu bạn chọn "Đăng nhập" túc là bạn đã đồng ý với <a href="" class="link">Thỏa thuận riêng tư</a> và <a href=""class="link">Điều khoản dịch vụ</a> của chúng tôi.</p>
+                </div>    
+            </div>
+        </div>
     </div>
     <div id="modal-3__signup" class="hide">
     <div class="box-container">
@@ -240,16 +245,22 @@
             <div class="box-title my-3">
                 <h4>Đăng ký</h4>
             </div>
-            <div class="form-login">
-                <form action="" class="d-flex flex-column justify-content-center">
-                    <label for="account" class="d-flex justify-content-center">
-                        <input type="text" name="account" class="input-account input-content" placeholder="Email hoặc số điện thoại di động">
-                        <!-- <span class="position-absolute d-block top-0">Nhập Email hoặc số điện thoại</span> -->
+            <div class="form-register">
+                <form action="{{route('register.submit')}}" method="POST" class="d-flex flex-column justify-content-center">
+                    @csrf
+                    <label for="name" class="d-flex justify-content-center">
+                        <input type="text" id="name" name="name" class="input-account input-content" value="{{ old('name') }}" required autocomplete="name" placeholder="Tên của bạn">
+                        
+                    </label>
+                    <label for="email" id="email" class="d-flex justify-content-center">
+                        <input type="email" name="email" class="input-account input-content" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
+                        
                     </label>
                     <label for="password" class="d-flex justify-content-center">
                         <div class="position-relative">
-                            <input type="password" name="password" class="input-password input-content" placeholder="Mật khẩu">
-                            <span class="position-absolute eye d-block">
+                            <input type="password" name="password" class="input-password input-content" required autocomplete="new-password" placeholder="Mật khẩu">
+                            
+                            {{-- <span class="position-absolute eye d-block">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                                 <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
                                 <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
@@ -261,13 +272,13 @@
                                 <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
                                 <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
                                 </svg>
-                            </span>
+                            </span> --}}
                         </div>
                     </label>
-                    <label for="confirmPassword" class="d-flex justify-content-center">
+                    <label for="password-confirm" class="d-flex justify-content-center">
                         <div class="position-relative">
-                            <input type="" name="confirmPassword" class="input-password input-content" placeholder="Nhập lại mật khẩu">
-                            <span class="position-absolute eye d-block">
+                            <input type="password" name="password_confirmation" class="input-password input-content" required autocomplete="new-password" placeholder="Nhập lại mật khẩu">
+                            {{-- <span class="position-absolute eye d-block">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                                 <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
                                 <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
@@ -279,11 +290,11 @@
                                 <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
                                 <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
                                 </svg>
-                            </span>
+                            </span> --}}
                         </div>
                     </label>
                     <div class="d-flex justify-content-center">
-                        <button class="button-login">Đăng ký</button>
+                        <button class="button-login" type="submit">Đăng ký</button>
                     </div>
                 </form>
             </div>
@@ -446,6 +457,14 @@
             window.location.href = url;
         }
     </script>
-    
+    <script type="text/javascript">
+        var closeModal5 = document.querySelector('.modal-5__close');
+        var modal5 = document.querySelector('#modal-account__edit');
+        openModalEditAcc.onclick = function() {
+            modal5.classList.remove('hide');
+            modal5.classList.add('show');
+        }
+        closeModal(closeModal5,modal5);
+    </script>
 </body>
 </html>

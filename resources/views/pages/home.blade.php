@@ -69,7 +69,6 @@
                             <img src="{{ asset('uploads/movie/'.$hot->image) }}" loading="lazy" alt=""
                             class="body-movie__img">
                             <span class="body-movie__name d-block" >{{$hot->title}}</span>
-                            <span class="body-movie__nd d-block">Thể loại: <i>{{$hot->genre->title}}</i> </span>
                             <span class="body-movie__ep d-block"><i>{{$hot->sotap}} tập</i></span>
                             <span class="body-movie__sub d-block">
                                 <i>
@@ -122,7 +121,6 @@
                         <img src="{{ asset('uploads/movie/'.$film->image) }}" loading="lazy" alt=""
                         class="body-movie__img">
                         <span class="body-movie__name d-block" >{{$film->title}}</span>
-                        <span class="body-movie__nd d-block">Thể loại: <i>{{$film->genre->title}}</i> </span>
                         <span class="body-movie__ep d-block"><i>{{$film->sotap}} tập</i></span>
                         <span class="body-movie__sub d-block">
                             <i>

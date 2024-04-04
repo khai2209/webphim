@@ -22,6 +22,9 @@
         <li class="nav-item">
             <a class="nav-link" href="{{route('episode.create')}}">Tập phim</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{route('account.index')}}">Tài khoản người dùng</a>
+      </li>
       </ul>
       
     </div>

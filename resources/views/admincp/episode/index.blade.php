@@ -4,7 +4,7 @@
 <div class="container">
     <a href="{{route('episode.create')}}" class="btn btn-success my-3">Quản lý tập</a>
     <div class="row justify-content-center">
-        <table class="table table-dark">
+        <table class="table table-dark" id="tableEpisode">
             <thead>
               <tr>
                 <th scope="col">ID</th>
@@ -13,7 +13,6 @@
                 <th scope="col">Tập thêm</th>
                 <th scope="col">Ngày tạo</th>
                 <th scope="col">Ngày cập nhật</th>
-                
                 <th scope="col">Quản lý</th>
               </tr>
             </thead>

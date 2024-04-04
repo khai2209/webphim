@@ -9,6 +9,8 @@ use App\Models\Episode;
 use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\Movie_Genre;
+use App\Models\Favorite;
+use Auth;
 
 use DB;
 class IndexController extends Controller
@@ -121,7 +123,9 @@ class IndexController extends Controller
         $category = Category::orderBy('id','DESC')->get();
         $genre = Genre::orderBy('id','DESC')->get();
         $country = Country::orderBy('id','DESC')->get();
-        return view('pages.favorite-film', compact('category', 'genre', 'country'));
+        $movie = Movie::with('category','genre','country', 'movie_genre')->where('status',1)->first();
+        $favorite_film = Favorite::with('movie')->orderBy('id','DESC')->where('user_id', $user_id)->get();
+        return view('pages.favorite-film', compact('category', 'genre', 'country','movie','favorite_film'));
     }
     public function historyFilm() {
         $category = Category::orderBy('id','DESC')->get();

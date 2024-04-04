@@ -43,9 +43,6 @@ class MovieController extends Controller
         $list_genre = Genre::all();
         $country = Country::pluck('title','id');
         $list = Movie::with('category','movie_genre','country','genre')->withCount('episode')->orderBy('id','DESC')->get();//with('hàm' bên Models)
-        //đếm số tập đã thêm
-
-
         $path = public_path()."/json/";
         if(!is_dir($path)) {
             mkdir($path, 0700, true);
@@ -84,7 +81,6 @@ class MovieController extends Controller
         $movie->create_day = Carbon::now('Asia/Ho_Chi_Minh');
         $movie->update_day = Carbon::now('Asia/Ho_Chi_Minh');
         $movie->image = $data['image'];
-        $movie->image_banner = $data['image_banner'];
         //add img
         $get_image = $request->file('image'); // lấy dữ liệu ảnh
         if ($get_image) {

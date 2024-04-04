@@ -54,13 +54,13 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ route('admin.signout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    <form id="logout-form" action="{{ route('admin.signout') }}" method="GET" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
@@ -83,6 +83,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     {{-- datatable --}}
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    
     <script type="text/javascript">
         $('.select-year').change(function () {
             var year = $(this).find(':selected').val();
@@ -101,6 +102,7 @@
     <script type="text/javascript">
         $(document).ready( function () {
             $('#tableFilm').DataTable();
+            $('#tableEpisode').DataTable();
         } );
         function ChangeToSlug()
             {

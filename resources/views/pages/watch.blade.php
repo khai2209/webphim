@@ -7,28 +7,32 @@
                 <div class="video-player">
                     {!!$episode->linkfilm!!}
                 </div>
-                <div class="info d-flex flex-column">
+                <div class="info d-flex flex-column ms-2 py-2">
                     <div class="name-movie d-flex align-middle">
-                        <h2 class="text-light name-film">{{$movie->title}}</h2><i class="bi bi-caret-right-fill"></i></i><p class="text-light episode-film">Tập 1</p>
+                        <h2 class="text-light name-film">{{$movie->title}}</h2><i class="bi bi-caret-right-fill"></i></i><p class="text-light episode-film">
+                            Tập {{$episode->episode}}
+                        </p>
                     </div>
                     <div class="see-more d-flex flex-column">
                         <div>
                             <span class="text-light">Thể loại:</span> 
                             @foreach($movie->movie_genre as $key => $value)
-                                <a href="{{route('genre',[$value->slug])}}" class="text-light" style="padding:4px;border-radius:5px; background-color:#1CC749;">{{$value->title}}</a>
+                                <a href="{{route('genre',[$value->slug])}}" class="text-light" style="padding:0px 4px;border-radius:5px; background-color:#1CC749;">{{$value->title}}</a>
                             @endforeach
                         </div>
                         <div class="py-1">
+                            <span class="text-light">Số tập: <span class="text-light episodes-film">{{$movie->sotap}}</span></span> 
+                        </div>
+                        <div class="py-1">
                             <span class="text-light">Diễn viên:</span> 
-                            <span class="text-light cast-film">Dương Húc Văn, Cúc Tịnh Y, Trần Triết Viễn, Mao Tử Tuấn, Mao Hiểu Huệ, Trần Sở Hà</span>
+                            <span class="text-light cast-film">{{$movie->caster}}</span>
                         </div>
                         <div class="py-1">
                             <span class="text-light">Đạo diễn:</span> 
-                            <span class="text-light director-film">Đặng Lệ Quân</span>
+                            <span class="text-light director-film">{{$movie->director}}</span>
                         </div>
                         <div class="py-1">
                             <span class="text-light">Năm phát hành: <span class="text-light year-of-release">{{$movie->year}}</span></span> 
-                            <span class="text-light">Số tập: <span class="text-light episodes-film">{{$movie->sotap}}</span></span> 
                         </div>
                         <div class="summary text-light py-1">
                             <span class="">Mô tả:

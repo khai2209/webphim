@@ -39,10 +39,6 @@
                                 {!! Form::label('episode', 'Tập phim', []) !!}
                                 <select name="episode" class="form-control" id="show-episode"></select>
                             </div>
-                            <div class="form-group">
-                                {!! Form::label('sotapdathem', 'Tập phim đã thêm', []) !!}
-                                {!! Form::text('episode', isset($episode) ? $count_total_ep : '',[ 'class' => 'form-control', isset($episode) ? 'readonly' : '']) !!}
-                            </div>
                         @endif
                         
                         @if(!isset($episode))

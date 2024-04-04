@@ -254,6 +254,7 @@
 }
 
 /* Login */
+#modal-account__edit,
 #modal-4__forgotpass,
 #modal-3__signup,
 #modal-2__login,
@@ -402,7 +403,7 @@
 .body-movie__img {
     position: relative;
     height: 100%;
-    max-width: 232.48px;
+    min-width: 232.48px;
     border-radius: 5px;
     object-fit: cover;
 }
@@ -411,7 +412,7 @@
     z-index: 1;
     font-size: 18px;
     position: absolute;
-    bottom: 30px;
+    bottom: 10px;
     left: 10px;
     font-weight: 400;
     overflow: hidden;
@@ -419,19 +420,6 @@
     white-space: nowrap;
     max-width: 200px;
     color: #6fffab;
-}
-.body-movie__nd {
-    z-index: 1;
-    font-size: 14px;
-    position: absolute;
-    bottom: 8px;
-    left: 10px;
-    font-weight: 300;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 200px;
-    color: #65ffa5;
 }
 .body-movie__ep {
     z-index: 1;
@@ -720,3 +708,5 @@
     -webkit-box-shadow: 25px -5px 50px 40px #111319 inset, -25px -25px 50px 45px #111319 inset;
     box-shadow: 25px -5px 50px 40px #111319 inset, -25px -25px 50px 45px #111319 inset;
 }
+
+/* account page css */

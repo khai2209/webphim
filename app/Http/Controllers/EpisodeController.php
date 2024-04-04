@@ -46,7 +46,6 @@ class EpisodeController extends Controller
         $ep->episode = $data['episode'];
         $ep->created_at = Carbon::now('Asia/Ho_Chi_Minh');
         $ep->updated_at = Carbon::now('Asia/Ho_Chi_Minh');
-        
         $ep->save();
         return redirect()->back();
     }
