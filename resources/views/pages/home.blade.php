@@ -68,7 +68,7 @@
                         <div class="cover" onclick="redirectToFilm('{{ route('film-info', $hot->slug) }}')" style="cursor:pointer">
                             <img src="{{ asset('uploads/movie/'.$hot->image) }}" loading="lazy" alt=""
                             class="body-movie__img">
-                            <span class="body-movie__name d-block" >{{$hot->title}}</span>
+                            <span class="body-movie__name d-block">{{$hot->title}}</span>
                             <span class="body-movie__ep d-block"><i>{{$hot->sotap}} tập</i></span>
                             <span class="body-movie__sub d-block">
                                 <i>

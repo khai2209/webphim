@@ -9,4 +9,8 @@ class Favorite extends Model
 {
     public $timestamps = false;
     use HasFactory;
+    public function movie()
+    {
+        return $this->belongsTo(Movie::class, 'movie_id');
+    }
 }

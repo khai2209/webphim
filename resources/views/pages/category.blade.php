@@ -11,7 +11,7 @@
                         class="body-movie__img">
                         <span class="body-movie__name d-block" >{{$film->title}}</span>
                         <span class="body-movie__nd d-block">Thể loại: <i>{{$film->genre->title}}</i> </span>
-                        <span class="body-movie__ep d-block"><i>Tập 1/{{$film->episodes}}</i></span>
+                        <span class="body-movie__ep d-block"><i>{{$film->sotap}} tập</i></span>
                         <span class="body-movie__sub d-block">
                             <i>
                                 @if($film->subtitles==0)

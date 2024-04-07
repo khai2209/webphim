@@ -2,7 +2,7 @@
 @section('content')
 <div class="full-width col-md-12">
     <div class="category" style="padding-top: 100px;">
-        <h4 class="text-light category-name">{{$search}}</h4>
+        <h4 class="text-light category-name">Tìm kiếm</h4>
         <div class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 align">
             @foreach($movie as $key => $film)
                 <article class="item-container">
@@ -11,7 +11,7 @@
                         class="body-movie__img">
                         <span class="body-movie__name d-block" >{{$film->title}}</span>
                         <span class="body-movie__nd d-block">Thể loại: <i>{{$film->genre->title}}</i> </span>
-                        <span class="body-movie__ep d-block"><i>Tập 1/{{$film->episodes}}</i></span>
+                        <span class="body-movie__ep d-block"><i>{{$film->sotap}} tập</i></span>
                         <span class="body-movie__sub d-block">
                             <i>
                                 @if($film->subtitles==0)

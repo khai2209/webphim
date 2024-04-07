@@ -76,13 +76,14 @@ class IndexController extends Controller
         $country = Country::orderBy('id','DESC')->get();
         $movie = Movie::with('category','genre','country', 'movie_genre')->where('slug',$slug)->where('status',1)->first();
         $movie_related = Movie::with('category','genre','country')->where('category_id', $movie->category->id)->orderby(DB::raw('RAND()'))->whereNotIn('slug',[$slug])->get();
+        $favorite = Favorite::orderBy('id','DESC')->get();
         //lay 3 tap mois nhat
         $episode = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode','DESC')->take(3)->get();
         $get_first_ep = Episode::with('movie')->where('movie_id', $movie->id)->orderBy('episode', 'ASC')->take(1)->first();
         //lay tong tap da them
         $get_total_ep_added = Episode::with('movie')->where('movie_id',$movie->id)->get();
         $count_total_ep = $get_total_ep_added->count();
-        return view('pages.movie', compact('category', 'genre', 'country','filmhot', 'movie','movie_related','episode','get_first_ep','count_total_ep'));
+        return view('pages.movie', compact('category', 'genre', 'country','filmhot', 'movie','movie_related','episode','get_first_ep','count_total_ep','favorite'));
     }
 
     public function year($year) {
@@ -96,11 +97,10 @@ class IndexController extends Controller
     }
     public function watch($slug,$tap) {
         if(isset($tap)){
-            $tapphim = $tap;
+            $tapphim = intval(substr($tap, strpos($tap, '-') + 1));
         }else{
             $tapphim = 1;
         }
-        $tapphim = substr($tap,4,1);
         $filmhot = Movie::where('filmhot', 1)->where('status', 1)->get();
         $category = Category::orderBy('id','DESC')->get();
         $genre = Genre::orderBy('id','DESC')->get();
@@ -123,9 +123,8 @@ class IndexController extends Controller
         $category = Category::orderBy('id','DESC')->get();
         $genre = Genre::orderBy('id','DESC')->get();
         $country = Country::orderBy('id','DESC')->get();
-        $movie = Movie::with('category','genre','country', 'movie_genre')->where('status',1)->first();
-        $favorite_film = Favorite::with('movie')->orderBy('id','DESC')->where('user_id', $user_id)->get();
-        return view('pages.favorite-film', compact('category', 'genre', 'country','movie','favorite_film'));
+        $favorite = Favorite::with('movie')->orderBy('id', 'DESC')->get();
+        return view('pages.favorite-film', compact('category', 'genre', 'country','favorite'));
     }
     public function historyFilm() {
         $category = Category::orderBy('id','DESC')->get();

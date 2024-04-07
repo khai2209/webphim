@@ -113,7 +113,7 @@
                     </a>
                 @else
                     <div class="ms-5 d-flex flex-column align-items-center click-login" style="background-color: #1CC749; padding: 8px 10px; border-radius: 5px; cursor: pointer">
-                        <i class="" style="height: 22px; line-height: 22px;">Đăng nhập</i>
+                        <i class="" style="height: 22px; line-height: 22px;min-width: 78px;">Đăng nhập</i>
                     </div>
                 @endif
                 
@@ -403,7 +403,7 @@
             },
             gap: 0,
             bound: true,
-            autoplay: false,
+            autoplay: 3500,
             hoverpause: true
         };
         new Glide('.glide', config).mount();
@@ -425,7 +425,7 @@
                         $.getJSON('/json/movie.json', function(data) {
                             $.each(data, function (key, value) {
                                 if(value.title.search(expression) != -1)  {
-                                    $('#result').append('<li style="cursor:pointer;" class="list-item link-class"><a style="display:block; color:white;">' + value.title + '</a></li>');
+                                    $('#result').append('<li style="cursor:pointer;" class="list-item link-class "><a style="display:block; color:white;">' + value.title + '</a></li>');
                                     found = true;
                                 }
                             });

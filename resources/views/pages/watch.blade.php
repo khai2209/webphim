@@ -4,13 +4,15 @@
     <div class="row">
         <div class="col-md-12 d-flex mt-3" style="background-color:#1A1C22;padding-left:0">
             <div class="class col-md-9">
-                <div class="video-player">
+                <div class="video-player ms-4">
                     {!!$episode->linkfilm!!}
                 </div>
-                <div class="info d-flex flex-column ms-2 py-2">
+                <div class="info d-flex flex-column ms-4 py-2">
                     <div class="name-movie d-flex align-middle">
-                        <h2 class="text-light name-film">{{$movie->title}}</h2><i class="bi bi-caret-right-fill"></i></i><p class="text-light episode-film">
-                            Tập {{$episode->episode}}
+                        <h2 class="text-light name-film">{{$movie->title}}</h2>
+                        <i class="bi bi-caret-right-fill"></i>
+                        <p class="text-light episode-film">
+                            Tập {{intval($episode->episode)}}
                         </p>
                     </div>
                     <div class="see-more d-flex flex-column">

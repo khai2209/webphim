@@ -6,6 +6,8 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AccountUserController;
+use App\Http\Controllers\FavoriteController;
+
 //admin controller
 use App\Http\Controllers\{CategoryController,CountryController,EpisodeController,GenreController,MovieController,ManagerUserController};
 
@@ -29,7 +31,9 @@ Route::get('/tim-kiem', [IndexController::class, 'search'])->name('search');
 
 Route::get('/tai-khoan', [IndexController::class, 'accountUser'])->name('account');
 Route::get('/favorite-film', [IndexController::class, 'favoriteFilm'])->name('favorite');
-Route::post('/add-favorite-film/{movie_id}', [AddFavoriteController::class, 'add'])->name('favorite.add');
+Route::post('/add-favorite-film/{movie_id}', [FavoriteController::class, 'add'])->name('favorite.add');
+Route::delete('/del-favorite-film/{movie_id}', [FavoriteController::class, 'destroy'])->name('favorite.del');
+
 Route::get('/history', [IndexController::class, 'historyFilm'])->name('history');;
 
 //dang nhap dang ký user
