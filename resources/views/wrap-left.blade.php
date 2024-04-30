@@ -10,7 +10,7 @@
         </div>
         <div class="list-setting">
             <div class="setting-item text-light my-2">
-                <a href="{{route('account')}}" style="text-decoration:none;" class="setting-nav-item {{ Request::is('account') ? 'active-setting-nav' : '' }} ">
+                <a href="{{route('account')}}" style="text-decoration:none;" class="setting-nav-item {{ Request::is('tai-khoan') ? 'active-setting-nav' : '' }} ">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
                     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
                     </svg>
@@ -23,12 +23,19 @@
                     <span class="ps-2">Danh sách yêu thích</span> 
                 </a>
             </div>
-            <div class="setting-item text-light my-2">
+            {{-- <div class="setting-item text-light my-2">
                 <a href="{{route('history')}}" style="text-decoration:none;" class="setting-nav-item {{ Request::is('history') ? 'active-setting-nav' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512"><path fill="currentColor" d="M464 256A208 208 0 1 1 48 256a208 208 0 1 1 416 0zM0 256a256 256 0 1 0 512 0A256 256 0 1 0 0 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>
                     <span class="ps-2">Lịch sử xem</span> 
                 </a>
-            </div>
+                
+            </div> --}}
+            @if($message = Session::get('soon'))
+                    <div class="alert alert-success alert-block">
+                        <btn:button class="close" data-dismiss="alert"></btn:button>
+                        <strong>{{$message}}</strong>
+                    </div>
+                @endif
             <div class="setting-item text-light my-2">
                 <a href="{{route('logout')}}" style="text-decoration:none;" class="setting-nav-item">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-box-arrow-right" viewBox="0 0 16 16">

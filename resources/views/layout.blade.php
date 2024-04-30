@@ -27,14 +27,25 @@
         <link rel="stylesheet" href="../css/glide.core.min.css">
         <!-- Optional Theme stylesheet -->
         <link rel="stylesheet" href="../css/glide.theme.min.css">
-        
+        <style>
+            .pagination .page-link {
+                background-color: #1E212C;
+                color: #fff;
+                border-color: #00DC5A;
+            }
+
+            .pagination .page-item.active .page-link {
+                background-color: #00DC5A;
+                border-color: #00DC5A;
+            }
+        </style>
     </head>
 <body>
     <header id="header">
         <div class="header-left">
             <div class="logo-header d-flex align-items-center">
                 <a href="{{route('homepage')}}" class="{{ Request::is('/') ? 'active-navbar' : '' }}">
-                    <img src="{{ asset('images/LOGO.png') }}" alt="" class="logo">
+                    <img src="{{ asset('images/PHiM65.png') }}" alt="" class="logo">
                 </a>
             </div>
             <div class="navbar-left">
@@ -101,7 +112,7 @@
                     </button>
                 </form>
             </div>
-            <ul class="list-group" id="result" style="display:none; position: absolute; max-height:600px; overflow: hidden;">
+            <ul class="list-group" id="result" style="display:none; position: absolute; max-height:44.9rem; overflow: hidden;">
             </ul>
             <div class="navbar-left">
                 @if(Auth::check())
@@ -139,7 +150,7 @@
                     <h3>Đăng nhập</h3>
                 </div>
                 <p class="py-3">Bạn có thể quản lý tài khoản sau khi đăng nhập.</p>
-                <div class="login-with__google d-flex justify-content-center my-3">
+                {{-- <div class="login-with__google d-flex justify-content-center my-3">
                     <button href="" class="btn-login text-primary-emphasis">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-google" viewBox="0 0 16 16">
                         <path d="M15.545 6.558a9.4 9.4 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.7 7.7 0 0 1 5.352 2.082l-2.284 2.284A4.35 4.35 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.8 4.8 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.7 3.7 0 0 0 1.599-2.431H8v-3.08z"/>
@@ -154,7 +165,7 @@
                         </svg>
                         <span class="fs-6 ps-3">Đăng nhập bằng Facebook</span>
                     </button>
-                </div>
+                </div> --}}
                 <div class="login-with__account d-flex justify-content-center my-3">
                     <button href="" class="btn-login switch-model__2 text-primary-emphasis">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
@@ -195,9 +206,18 @@
                 <div class="form-login">
                     <form action="{{route('login.submit')}}" method="POST" class="d-flex flex-column justify-content-center">
                         @csrf
+                        <b style="display: flex;
+                        margin: 0px 50px;
+                        align-items: center;
+                        justify-content: start;">Email</b>
                         <label for="email" class="d-flex justify-content-center">
+                           
                             <input type="email" name="email" class="input-account input-content" required placeholder="Email">
                         </label>
+                        <b style="display: flex;
+                        margin: 5px 50px 0 50px;
+                        align-items: center;
+                        justify-content: start;">Mật khẩu</b>
                         <label for="password" class="d-flex justify-content-center">
                             <div class="position-relative">
                                 <input type="password" name="password" class="input-password input-content" required  placeholder="Mật khẩu">
@@ -220,7 +240,10 @@
                             <button type="submit" class="button-login">Đăng nhập</button>
                         </div>
                     </form>
-                    <button class="button-forgotpass">Quên mật khẩu</button>
+                    <div class="d-flex justify-content-center">
+                        <a href="{{route('forgot.submit')}}" class="button-forgotpass text-dark" style="text-decoration:none;">Quên mật khẩu</a>
+                    </div>
+                    
                 </div>
                 <div class="box-footer d-flex justify-content-center flex-column align-items-center">
                     <p class="py-1"><button class="btn-signup__md2 link">Đăng ký</button> hoặc <button class="btn-another__md2 link">Dùng tài khoản khác đăng nhập</button></p>
@@ -248,36 +271,52 @@
             <div class="form-register">
                 <form action="{{route('register.submit')}}" method="POST" class="d-flex flex-column justify-content-center">
                     @csrf
+                    <b style="display: flex;
+                        margin: 0px 50px;
+                        align-items: center;
+                        justify-content: start;">Tên của bạn</b>
                     <label for="name" class="d-flex justify-content-center">
-                        <input type="text" id="name" name="name" class="input-account input-content" value="{{ old('name') }}" required autocomplete="name" placeholder="Tên của bạn">
-                        
+                        <input type="text" id="name" name="name" class="input-account input-content" value="{{ old('name') }}" required minlength="4" maxlength="15"
+                        title="4 <= Tên hiển thị <= 15." autocomplete="name" placeholder="Tên của bạn">
                     </label>
+                    @error('name') <small class="text-danger" style="display: flex;
+                        margin: 5px 50px 0 50px;
+                        align-items: center;
+                        justify-content: start;">{{$message}}</small>@enderror
+                    
+                    <b style="display: flex;
+                        margin: 5px 50px 0 50px;
+                        align-items: center;
+                        justify-content: start;">Email</b>
                     <label for="email" id="email" class="d-flex justify-content-center">
                         <input type="email" name="email" class="input-account input-content" value="{{ old('email') }}" required autocomplete="email" placeholder="Email">
-                        
                     </label>
+                    @error('email') <small class="text-danger" style="display: flex;
+                        margin: 5px 50px 0 50px;
+                        align-items: center;
+                        justify-content: start;">{{$message}}</small>@enderror
+                    
+                    <b style="display: flex;
+                        margin: 5px 50px 0 50px;
+                        align-items: center;
+                        justify-content: start;">Mật khẩu</b>
                     <label for="password" class="d-flex justify-content-center">
                         <div class="position-relative">
-                            <input type="password" name="password" class="input-password input-content" required autocomplete="new-password" placeholder="Mật khẩu">
-                            
-                            {{-- <span class="position-absolute eye d-block">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
-                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
-                                </svg>
-                            </span>
-                            <span class="position-absolute eye d-block d-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-slash" viewBox="0 0 16 16">
-                                <path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
-                                <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
-                                <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>
-                                </svg>
-                            </span> --}}
+                            <input type="password" name="password" class="input-password input-content" minlength="6" maxlength="16" required placeholder="Mật khẩu">
                         </div>
                     </label>
-                    <label for="password-confirm" class="d-flex justify-content-center">
+                    @error('password') <small class="text-danger" style="display: flex;
+                    margin: 5px 50px 0 50px;
+                    align-items: center;
+                    justify-content: start;">{{$message}}</small>@enderror
+                    
+                    <b style="display: flex;
+                        margin: 5px 50px 0 50px;
+                        align-items: center;
+                        justify-content: start;">Nhập lại mật khẩu</b>
+                    <label for="password_confirmation" class="d-flex justify-content-center">
                         <div class="position-relative">
-                            <input type="password" name="password_confirmation" class="input-password input-content" required autocomplete="new-password" placeholder="Nhập lại mật khẩu">
+                            <input type="password" name="password_confirmation" id="password_confirmation" class="input-password input-content" required autocomplete="new-password" placeholder="Nhập lại mật khẩu">
                             {{-- <span class="position-absolute eye d-block">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                                 <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
@@ -293,6 +332,7 @@
                             </span> --}}
                         </div>
                     </label>
+                    
                     <div class="d-flex justify-content-center">
                         <button class="button-login" type="submit">Đăng ký</button>
                     </div>
@@ -305,7 +345,7 @@
         </div>
     </div>
     </div>
-    <div id="modal-4__forgotpass" class="hide">
+    {{-- <div id="modal-4__forgotpass" class="hide">
     <div class="box-container">
         <div class="box-header">
             <div class="back-btn__4">
@@ -321,15 +361,16 @@
             <div class="box-title my-3">
                 <h4>Tìm lại mật khẩu</h4>
             </div>
-            <p class="py-3 px-5">Xin vui lòng nhập đúng Email tài khoản của bạn, chúng tôi sẽ gửi mật khẩu mới tới Email của bạn.</p>
+            <p class="py-3 px-5">Xin vui lòng nhập đúng Email tài khoản của bạn.</p>
             <div class="form-login">
-                <form action="" class="d-flex flex-column justify-content-center">
+                <form action="{{route('forget.password.post')}}" method="POST" class="d-flex flex-column justify-content-center">
+                    @csrf
                     <label for="account" class="d-flex justify-content-center">
-                        <input type="text" name="account" class="input-account input-content" placeholder="Email hoặc số điện thoại di động">
+                        <input type="email" name="account" class="input-account input-content" required placeholder="Email hoặc số điện thoại di động">
                         <!-- <span class="position-absolute d-block top-0">Nhập Email hoặc số điện thoại</span> -->
                     </label>
                     <div class="d-flex justify-content-center">
-                        <button class="button-login">Gửi</button>
+                        <button type="submit" class="button-login text-dark" style="text-decoration: none;">Gửi</button>
                     </div>
                 </form>
             </div>
@@ -339,8 +380,28 @@
             </div>    
         </div>
     </div>
-    </div>
-
+    </div> --}}
+    @if(Session::has('signin'))
+        <script>
+            alert("{{ Session::get('signin') }}");
+        </script>
+    @endif
+    @if(Session::has('signinFail'))
+        <script>
+            alert("{{ Session::get('signinFail') }}");
+        </script>
+    @endif
+    
+    @if(Session::has('loginfail'))
+        <script>
+            alert("{{ Session::get('loginfail') }}");
+        </script>
+    @endif
+    @if(Session::has('validate'))
+        <script>
+            alert("{{ Session::get('validate') }}");
+        </script>
+    @endif
     <footer id="footer">
         <div class="footer-cotainer d-flex justify-content-center flex-column">
             <h3 class="footer-title text-light d-flex justify-content-center pt-5">Trường Đại Học Xây Dựng Hà Nội - Hanoi University of Civil Engineering</h3>
@@ -371,7 +432,7 @@
         </div>
     </footer>
     <script src="{{ asset('js/script.js')}}"></script>
-    <script src="{{ asset('js/api.js')}}"></script>
+    {{-- <script src="{{ asset('js/api.js')}}"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
@@ -386,16 +447,16 @@
         // glide.js
         const config = {
             type: 'carousel',
-            perView: 6,
+            perView: 6.2,
             breakpoints: {
                 1700: {
-                    perView: 5
+                    perView: 5.2
                 },
                 1330: {
-                    perView: 4
+                    perView: 4.2
                 },
                 1150: {
-                    perView: 3
+                    perView: 3.2
                 },
                 800: {
                     perView: 2
@@ -408,6 +469,7 @@
         };
         new Glide('.glide', config).mount();
     </script>
+    
     <script type="text/javascript">
         // search = ajax
         var typingTimer;
@@ -424,9 +486,11 @@
                         var expression = new RegExp(search, "i");//tạo mới đối tượng biểu thức chính quy, i ko phân biệt chữ hoa or thường
                         $.getJSON('/json/movie.json', function(data) {
                             $.each(data, function (key, value) {
-                                if(value.title.search(expression) != -1)  {
-                                    $('#result').append('<li style="cursor:pointer;" class="list-item link-class "><a style="display:block; color:white;">' + value.title + '</a></li>');
+                                if(value.title.search(expression) != -1 || value.caster.search(expression) != -1)  {
+                                    $('#result').append('<li style="cursor:pointer; margin:5px 0;" class="list-item link-class "><a style="display:block; color:white;"><img style="padding-right:10px" width="100" src="/uploads/movie/'+ value.image +'"></img>' + value.title + '</a></li>');
                                     found = true;
+                                    // <li style="cursor:pointer; display: flex; max-height: 200px;" class="list-group-item link-class"><img src="uploads/movie/'+value.image+'" width="100" class="" /><div style="flex-direction: column; margin-left: 2px;"><h4 width="100%">'+value.title+'</h4><span style="display: -webkit-box; max-height: 8.2rem; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; white-space: normal; -webkit-line-clamp: 5; line-height: 1.6rem;" class="text-muted">| '+value.description+'</span></div></li>
+                                    
                                 }
                             });
                             if (!found) { // Nếu không tìm thấy kết quả nào

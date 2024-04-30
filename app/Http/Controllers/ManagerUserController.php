@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
-
+use Hash;
 class ManagerUserController extends Controller
 {
     public function index()
@@ -43,9 +43,13 @@ class ManagerUserController extends Controller
     {
         $data = $request->all();
         $acc_user = User::find($id);
+        $logged_in_user = Auth::user();
+        if(!Hash::check($data['password'], $logged_in_user->password)) {
+            return redirect()->back()->with('passwordWrong', 'Sai mật khẩu!');
+        }
         $acc_user->is_admin = $data['is_admin'];
         $acc_user->save();
-        return redirect()->route('acc-user');
+        return redirect()->route('acc-user')->with('updateok', 'Cập nhật thành công');
     }
 
     /**

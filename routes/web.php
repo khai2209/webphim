@@ -28,20 +28,26 @@ Route::get('/so-tap', [IndexController::class, 'episode'])->name('so-tap');
 Route::get('/year/{year}', [IndexController::class, 'year']);
 
 Route::get('/tim-kiem', [IndexController::class, 'search'])->name('search');
+Route::get('/locphim', [IndexController::class, 'filter'])->name('locphim');
 
 Route::get('/tai-khoan', [IndexController::class, 'accountUser'])->name('account');
 Route::get('/favorite-film', [IndexController::class, 'favoriteFilm'])->name('favorite');
 Route::post('/add-favorite-film/{movie_id}', [FavoriteController::class, 'add'])->name('favorite.add');
 Route::delete('/del-favorite-film/{movie_id}', [FavoriteController::class, 'destroy'])->name('favorite.del');
 
-Route::get('/history', [IndexController::class, 'historyFilm'])->name('history');;
-
+// Route::get('/history', [IndexController::class, 'historyFilm'])->name('history');;
+// Route::post('/add-history-film/{movie_id}', [HistoryController::class, 'add'])->name('favorite.add');
+// Route::delete('/del-history-film/{movie_id}', [HistoryController::class, 'destroy'])->name('favorite.del');
 //dang nhap dang ký user
 Route::get('/register-user', [UserController::class, 'register'])->name('register.submit');
 Route::post('/register-user', [UserController::class, 'postRegister']);
-
 Route::get('/login-user', [UserController::class, 'login'])->name('login.submit');
 Route::post('/login-user', [UserController::class, 'postLogin']);
+
+Route::get('/forgot-password', [IndexController::class, 'forgotPass'])->name('forgot.submit');
+Route::post('/forgot-password', [UserController::class, 'postForgotPass'])->name('forget.password.post');
+Route::get('/reset-password/{user}/{token}', [IndexController::class, 'resetPass'])->name('reset.submit');
+Route::post('/reset-password/{user}/{token}', [UserController::class, 'postResetPass']);
 
 Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 
@@ -59,8 +65,10 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('category', CategoryController::class);
 Route::resource('country', CountryController::class);
 // app episode
+Route::get('/add-ep/{id}', [EpisodeController::class, 'add_ep'])->name('add-ep');
 Route::resource('episode', EpisodeController::class);
 Route::get('/select-movie', [EpisodeController::class, 'select_movie'])->name('select-movie');
+
 Route::resource('genre', GenreController::class);
 Route::resource('movie', MovieController::class);
 

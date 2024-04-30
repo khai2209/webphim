@@ -1,9 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
-        <table class="table table-dark">
+        <div class="col-sm-12">
+            @if($message = Session::get('updateok'))
+                <div class="alert alert-success alert-block" style="min-width: 300px; text-center">
+                    <btn:button class="close" data-dismiss="alert"></btn:button>
+                    <strong>{{$message}}</strong>
+                </div>
+            @endif
+        </div>
+        <table class="table table-light" id="tableUser">
             <thead>
               <tr>
                 <th scope="col">id</th>
@@ -39,11 +47,11 @@
                     <td>Chưa cập nhật</td>
                     <td class="d-flex">
                         {!! Form::open(['method' => 'DELETE', 'route' => ['account.destroy', $acc->id], 'onsubmit'=>'return confirm("Bạn có muốn xóa")', 'class' => 'form-horizontal']) !!}
-                            <div class="btn-group pull-right">
+                            <div class="btn-group  ms-2">
                                 {!! Form::submit('Xóa', ['class' => 'btn btn-danger']) !!}
                             </div>
-                            <a href="{{route('account.edit', $acc->id)}}" class="btn btn-warning">Sửa role</a>
                         {!! Form::close() !!}
+                        <a href="{{route('account.edit', $acc->id)}}" class="btn btn-warning ms-2">Cấp quyền</a>
                     </td>
                 </tr>
               @endforeach

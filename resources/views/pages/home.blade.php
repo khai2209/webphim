@@ -1,48 +1,55 @@
 @extends('layout')
 @section('content')
 <div id="banner">
+    {{-- <div id="carouselExampleFade" class="carousel slide carousel-fade">
+        <div class="carousel-inner">
+          <div class="carousel-item">
+            <img src="..." class="d-block w-100" alt="...">
+          </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div> --}}
     <div class="carousel slide slider-container" id="carouselExampleIndicators" data-bs-ride="carousel"">
-        <div class=" carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                aria-label="Slide 3"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
-                aria-label="Slide 4"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"
-                aria-label="Slide 5"></button>
-        </div>
         <ul class="carousel-inner slider-list">
-            <li class="slider-item carousel-item active">
-                <a class="height-img" href="">
-                    <img src="{{ asset('images/banner1.jpg') }}" class="d-block w-100 slider-item__img" alt="image1">
-                </a>
-                <div class="info-banner position-absolute z-2">
-                    <h2 class="name-movie text-light text-shadow">Tiên kiếm kỳ hiệp 4</h2>
-                    <div class="status-movie text-light text-shadow">Trạng thái: <p
-                            class="d-inline-block text-light text-shadow">Đã hoàn thành</p>
-                    </div>
-                    <div class="category-movie text-light text-shadow">Thể loại: <a
-                            class="text-light text-shadow" href="">Tiên kiếm</a></div>
-                    <p class="introduce-movie my-3 fw-medium text-light text-shadow">Tiên Kiếm Kỳ Hiệp 4
-                        (Sword and Fairy 4) xoay quanh cuộc phiêu lưu của Yun Tian He, một người trẻ sống cô
-                        độc trên đỉnh núi. Trong một chuyến đi săn thường nhật,...
-                    </p>
-                    <a href="#" class="rounded-circle btn-play__banner">
-                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="25" cy="25" r="25" fill="#1CC749"/>
-                            <mask id="mask0_29_10" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="13" y="13" width="24" height="24">
-                            <rect x="13" y="13" width="24" height="24" fill="#D9D9D9"/>
-                            </mask>
-                            <g mask="url(#mask0_29_10)">
-                            <path d="M22.0738 33.9531C20.7423 34.8004 19 33.8439 19 32.2657V16.6433C19 15.0652 20.7423 14.1087 22.0738 14.956L34.3485 22.7672C35.5835 23.5531 35.5835 25.356 34.3485 26.1419L22.0738 33.9531Z" fill="white"/>
-                            </g>
-                            </svg>
+            @foreach($filmhot as $key => $hot)
+                <li class="slider-item carousel-item" onclick="redirectToFilm('{{ route('film-info', $hot->slug) }}')">
+                    <a class="height-img" href="{{ route('film-info', $hot->slug) }}">
+                        <img src="{{ asset('uploads/movie/'.$hot->image_banner) }}" class="d-block w-100 slider-item__img" style="width=800; height=600" >
                     </a>
-                </div>
-            </li>
+                    <div class="info-banner position-absolute z-2">
+                        <h2 class="name-movie text-light text-shadow">{{$hot->title}}</h2>
+                        <div class="status-movie text-light text-shadow">Trọn bộ: 
+                            <p class="d-inline-block text-light text-shadow">{{$hot->sotap}} Tập</p>
+                        </div>
+                        <div class="category-movie text-light text-shadow">Thể loại: 
+                            @foreach($hot->movie_genre as $key => $value)
+                                <a class="text-light text-shadow" href="#">{{$value->title}}</a>
+                            @endforeach
+                            
+                        </div>
+                        <p class="introduce-movie clamp my-3 fw-medium text-light text-shadow">
+                            {{$hot->description}}
+                        </p>
+                        <a href="#" class="rounded-circle btn-play__banner">
+                            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="25" cy="25" r="25" fill="#1CC749"/>
+                                <mask id="mask0_29_10" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="13" y="13" width="24" height="24">
+                                <rect x="13" y="13" width="24" height="24" fill="#D9D9D9"/>
+                                </mask>
+                                <g mask="url(#mask0_29_10)">
+                                <path d="M22.0738 33.9531C20.7423 34.8004 19 33.8439 19 32.2657V16.6433C19 15.0652 20.7423 14.1087 22.0738 14.956L34.3485 22.7672C35.5835 23.5531 35.5835 25.356 34.3485 26.1419L22.0738 33.9531Z" fill="white"/>
+                                </g>
+                                </svg>
+                        </a>
+                    </div>
+                </li>
+            @endforeach
         </ul>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -145,9 +152,21 @@
                     </div>
                 </article>
             @endforeach
+            <a href="{{route('category',$cate_home->slug)}}" class="btn-see-more cursor-pointer d-flex justify-content-end mt-3 w-100">
+                Xem thêm
+            </a>
         </div>
+        @if(Session::has('info'))
+            <script>
+                alert("{{ Session::get('info') }}");
+            </script>
+        @endif
     </div>
     @endforeach
 </div>
-
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector('.carousel-inner .slider-item').classList.add('active');
+    });
+</script>
 @endsection

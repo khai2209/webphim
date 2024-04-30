@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $list= Category::all();
+        return view('admincp.category.index',compact('list'));
     }
 
     /**
@@ -37,6 +38,10 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $existingCategoryTitle = Category::where('title', $data['title'])->first();
+        if($existingCategoryTitle) {
+            return redirect()->back()->with('themloi', "Danh mục đã tồn tại!");
+        }
         $category = new Category();
         $category->title = $data['title'];
         $category->slug = $data['slug'];
@@ -86,7 +91,7 @@ class CategoryController extends Controller
         $category->description = $data['description'];
         $category->status = $data['status'];
         $category->save();
-        return redirect()->back();
+        return redirect()->route('category.create')->with('capnhatok', "Cập nhật thành công");
     }
 
     /**

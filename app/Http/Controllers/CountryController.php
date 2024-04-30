@@ -14,7 +14,8 @@ class CountryController extends Controller
      */
     public function index()
     {
-        //
+        $list = Country::all();
+        return view('admincp.country.index', compact('list'));
     }
 
     /**
@@ -37,6 +38,10 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $existingCountryTitle = Country::where('title', $data['title'])->first();
+        if($existingCountryTitle) {
+            return redirect()->back()->with('themloi', "Thể loại đã tồn tại!");
+        }
         $country = new Country();
         $country->title = $data['title'];
         $country->slug = $data['slug'];
@@ -86,7 +91,7 @@ class CountryController extends Controller
         $country->description = $data['description'];
         $country->status = $data['status'];
         $country->save();
-        return redirect()->back();
+        return redirect()->route('country.create')->with('capnhatok', 'Cập nhật thành công');
     }
 
     /**

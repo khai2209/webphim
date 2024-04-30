@@ -14,7 +14,8 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //
+        $list= Genre::all();
+        return view('admincp.genre.index',compact('list'));
     }
 
     /**
@@ -37,6 +38,10 @@ class GenreController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $existingGenreTitle = Genre::where('title', $data['title'])->first();
+        if($existingGenreTitle) {
+            return redirect()->back()->with('themloi', "Thể loại đã tồn tại!");
+        }
         $genre = new Genre();
         $genre->title = $data['title'];
         $genre->slug = $data['slug'];
@@ -86,7 +91,7 @@ class GenreController extends Controller
         $genre->description = $data['description'];
         $genre->status = $data['status'];
         $genre->save();
-        return redirect()->back();
+        return redirect()->route('genre.create')->with('capnhatok', 'Cập nhật thành công');
     }
 
     /**

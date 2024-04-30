@@ -12,6 +12,22 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <div class="col-sm-12">
+                        @if($message = Session::get('capnhatok'))
+                            <div class="alert alert-success alert-block" style="min-width: 300px; text-center">
+                                <btn:button class="close" data-dismiss="alert"></btn:button>
+                                <strong>{{$message}}</strong>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="col-sm-12">
+                        @if($message = Session::get('themloi'))
+                            <div class="alert alert-danger alert-block" style="min-width: 300px; text-center">
+                                <btn:button class="close" data-dismiss="alert"></btn:button>
+                                <strong>{{$message}}</strong>
+                            </div>
+                        @endif
+                    </div>
                     @if(!isset($category))
                         {!! Form::open(['route'=>'category.store','method' => 'POST']) !!}
                     @else
@@ -25,7 +41,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            {!! Form::label('Slug', 'Slug', ['class' => 'col-sm-3 control-label']) !!}
+                            {!! Form::label('slug', 'Slug', ['class' => 'col-sm-3 control-label']) !!}
                             <div class="col-sm-12">
                                 {!! Form::text('slug', isset($category) ? $category->slug : '', ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Nhập dữ liệu', 
                                 'id'=>'convert_slug']) !!}
@@ -39,57 +55,24 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            {!! Form::label('Active', 'Trạng thái', []) !!}
-                            {!! Form::select('status', ['1'=>'Hiển thị', '0'=>'Không hiển thị'],isset($category) ? $category->status : '',[ 'class' => 'form-control',]) !!}
-                    
+                            {!! Form::label('Active', 'Trạng thái', ['class' => 'col-sm-3 control-label']) !!}
+                            <div class="col-sm-12">
+                                {!! Form::select('status', ['1'=>'Hiển thị', '0'=>'Không hiển thị'],isset($category) ? $category->status : '',[ 'class' => 'form-control',]) !!}
                             </div>
+                        </div>
                         @if(!isset($category))
-                            {!! Form::submit('Thêm', ['class' => 'btn btn-success']) !!}
+                        <div class="col-sm-12">
+                            {!! Form::submit('Thêm', ['class' => 'btn btn-success mt-2']) !!}
+                        </div>
                         @else
-                            {!! Form::submit('Cập nhật', ['class' => 'btn btn-success']) !!}
+                        <div class="col-sm-12">
+                            {!! Form::submit('Cập nhật', ['class' => 'btn btn-success mt-2']) !!}
+                        </div>
                         @endif
                     {!! Form::close() !!}
                 </div>
             </div>
         </div>
-        <hr>
-        <table class="table table-dark">
-            <thead>
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col">Danh mục</th>
-                <th scope="col">Mô tả</th>
-                <th scope="col">Slug</th>
-                <th scope="col">Trạng thái</th>
-                <th scope="col">Quản lý</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($list as $key => $cate)
-                <tr>
-                    <th scope="row">{{$key}}</th>
-                    <td>{{$cate->title}}</td>
-                    <td>{{$cate->description}}</td>
-                    <td>{{$cate->slug}}</td>
-                    <td>
-                        @if($cate->status)
-                            Hiển thị
-                        @else
-                            Không hiển thị
-                        @endif
-                    </td>
-                    <td class="d-flex">
-                        {!! Form::open(['method' => 'DELETE', 'route' => ['category.destroy', $cate->id], 'onsubmit'=>'return confirm("Bạn có muốn xóa")', 'class' => 'form-horizontal']) !!}
-                            <div class="btn-group pull-right">
-                                {!! Form::submit('Xóa', ['class' => 'btn btn-danger']) !!}
-                            </div>
-                        {!! Form::close() !!}
-                        <a href="{{ route('category.edit', $cate->id) }}" class="btn btn-warning ms-1">Sửa</a>
-                    </td>
-                </tr>
-              @endforeach
-            </tbody>
-        </table>
     </div>
 </div>
 @endsection

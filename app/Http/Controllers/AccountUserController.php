@@ -81,7 +81,8 @@ class AccountUserController extends Controller
         $account->number_phone = $request->input('number_phone');
 
         $account->save();
-        return redirect()->route('account');
+        
+        return redirect()->route('account')->with('updateok', 'Cập nhật thông tin thành công');
     }
 
     /**

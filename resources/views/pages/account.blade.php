@@ -11,9 +11,17 @@
             <div class="wrap-title">
                 <h3 class="text-light">Tài khoản của tôi</h3>
             </div>
+            
             <div class="center-x" >
+                
                     <div class="wrap-profile">
+                        @if (session('updateok'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('updateok') }}
+                            </div>
+                        @endif
                         <div class="profile-title color-opacity my-3">Thông tin cá nhân</div>
+                        
                         <div class="profile-content d-flex flex-column">
                                 <form action="" method="GET">
                                     <div class="d-flex justify-content-between" style="width:100%;">
@@ -104,12 +112,24 @@
                     <form action="{{route('taikhoan.update', ['account' => Auth::user()->id])}}" method="POST" class="d-flex flex-column justify-content-center">
                         @csrf
                         @method('PUT')
+                        <b style="display: flex;
+                        margin: 5px 0px 0 50px;
+                        align-items: center;
+                        justify-content: start;">Tên của bạn</b>
                         <label for="name" class="d-flex justify-content-center">
                             <input type="text" name="name" class="input-account input-content" required value="{{Auth::user()->name}}">
                         </label>
+                        <b style="display: flex;
+                        margin: 5px 50px 0 50px;
+                        align-items: center;
+                        justify-content: start;">Email</b>
                         <label for="email" class="d-flex justify-content-center">
-                            <input type="email" name="email" class="input-account input-content" required value="{{Auth::user()->email}}">
+                            <input type="email" name="email" class="input-account input-content" required readonly value="{{Auth::user()->email}}">
                         </label>
+                        <b style="display: flex;
+                        margin: 5px 50px 0 50px;
+                        align-items: center;
+                        justify-content: start;">Giới tính</b>
                         <label for="gender" class="d-flex justify-content-center">
                             <select class="input-account input-content" id="inputGroupSelect02" name="gender">
                                 <option disabled">Giới tính</option>
@@ -118,9 +138,17 @@
                                 <option value="2" {{ Auth::user()->gender == 2 ? 'selected' : '' }}>Nữ</option>
                             </select>
                         </label>
+                        <b style="display: flex;
+                        margin: 5px 50px 0 50px;
+                        align-items: center;
+                        justify-content: start;">Ngày sinh</b>
                         <label for="born" class="d-flex justify-content-center">
                             <input type="date" name="born" class="input-account input-content" required value="{{Auth::user()->born}}">
                         </label>
+                        <b style="display: flex;
+                        margin: 5px 50px 0 50px;
+                        align-items: center;
+                        justify-content: start;">Số điện thoại</b>
                         <label for="number_phone" class="d-flex justify-content-center">
                             <input type="tel" name="number_phone" class="input-account input-content" required value="{{Auth::user()->number_phone}}">
                         </label>

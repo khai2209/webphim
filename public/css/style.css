@@ -75,7 +75,6 @@
     height: 60px;
     min-width: 300px;
     font-size: 16px;
-    margin-top: 8px;
     border-radius: 5px;
     border: 1px solid rgba(0, 0, 0, 0.4);
     overflow: hidden;
@@ -123,6 +122,14 @@
     background-color: var(--btn-accept) !important;
     color: #000 !important;
 }
+.custom-input {
+    background-color: #1E212C !important;
+    border: none !important;
+    color: var(--hover-color) !important;
+}
+.custom-btn {
+    background-color: var(--btn-accept) !important;
+}
 
 /* Header */
 #header {
@@ -139,7 +146,7 @@
     transition: all 0.5s ease-out;
 }
 .logo {
-    font-size: 40px;
+    height: 28px;
 }
 .header-left {
     display: flex;
@@ -191,7 +198,7 @@
 
 .search-header {
     position: relative;
-    width: 240px;
+    width: 24.5rem;
     height: 36px;
     background: rgba(255, 255, 255, 0.2);
     padding: 0 53px 0 12px;
@@ -201,7 +208,8 @@
 .list-group {
     padding: 0 !important;
     top: 4rem;
-    width: 240px;
+    right: 13.4rem;
+    width: 400px;
     background-color: #1A1C22;
     padding: 8px 10px;
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -389,6 +397,7 @@
     margin-right: 25px;
 }
 .body-content {
+
     transform: translateY(-90px);
 }
 
@@ -404,7 +413,7 @@
     background-color: #1e212c;
     box-shadow: 0 0 10px rgb(158 252 108 / 25%); 
     border-radius:3px;
-    padding: 25px 10px;
+    padding: 25px 20px 25px 10px;
     margin: 5px 0 0 0;
 }
 

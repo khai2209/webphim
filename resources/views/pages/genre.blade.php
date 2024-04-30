@@ -2,7 +2,8 @@
 @section('content')
 <div class="full-width col-md-12">
     <div class="category" style="padding-top: 100px;">
-        <h4 class="text-light category-name">{{$gen_slug->title}}</h4>
+        <h4 class="text-light category-name">Phim thuộc thể loại "{{$gen_slug->title}}"</h4>
+        @include('filterLayout')
         <div class="row row-cols-xxl-6 row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1 align">
             @foreach($movie as $key => $film)
                 <article class="item-container">
